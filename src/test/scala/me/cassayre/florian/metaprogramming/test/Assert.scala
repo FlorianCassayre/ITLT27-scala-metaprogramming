@@ -4,6 +4,8 @@ import scala.quoted.{Expr, Quotes}
 
 object Assert:
 
+  def summonValue[V](using v: ValueOf[V]): V = v.value
+
   inline def assertExprEquals[A](inline expected: A, inline actual: A): Unit =
     ${ assertExprCompareImpl('expected, 'actual, true) }
 
