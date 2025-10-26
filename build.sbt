@@ -11,8 +11,9 @@ lazy val root = (project in file("."))
       "-experimental", // Enable experimental features
       //"-Xprint:postInlining", // Print AST after inlining
     ),
+    libraryDependencies += "org.scala-lang" %% "scala3-staging" % scalaVersion.value, // MSP
     libraryDependencies ++= Seq(
       "org.scalactic" %% "scalactic" % scalaTestVersion % "test",
-      "org.scalatest" %% "scalatest" % scalaTestVersion % "test"
+      "org.scalatest" %% "scalatest" % scalaTestVersion % "test",
     )
   )
