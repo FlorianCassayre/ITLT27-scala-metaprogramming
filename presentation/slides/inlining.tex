@@ -1,0 +1,34 @@
+\begin{frame}[fragile]{Function inlining}
+
+  \begin{block}{}
+    Replace a function \textbf{call site} with the \textbf{body} of the called function.
+  \end{block}
+
+  \vspace{0.25cm}
+
+  \pause
+
+\begin{scalacode}
+inline def add(a: Int, b: Int): Int = a + b
+\end{scalacode}
+
+  \pause
+
+\vfill
+
+\begin{scalacode}
+val c = add(1, 2)
+\end{scalacode}
+
+  \pause
+
+  \compilesto
+
+\begin{scalacode}
+// 1 + 2
+val c = 3
+\end{scalacode}
+
+  \vspace{0.5cm}
+
+\end{frame}

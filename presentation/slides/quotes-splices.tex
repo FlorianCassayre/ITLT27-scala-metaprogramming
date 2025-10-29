@@ -1,0 +1,35 @@
+\begin{frame}{Macros: quotation and splicing}
+
+  \begin{itemize}
+    \item \textbf{Quotation}: converting \textbf{code} into an \textbf{AST}
+    \item \textbf{Splicing}: converting an \textbf{AST} back into \textbf{code}
+  \end{itemize}
+
+\begin{center}
+\begin{tikzpicture}[x=1cm, y=1cm]
+    \useasboundingbox (-6,-2) rectangle (6,2);
+
+    \node (quote) at (-3,0) {\huge\texttt{T}};
+    \node (splice) at (3,0) {\huge\texttt{Expr[T]}};
+    
+    \draw[->, very thick]
+        ([xshift=10pt, yshift=10pt]quote.east) -- ([xshift=-10pt, yshift=10pt]splice.west) 
+        node[midway, above, yshift=10pt] {\Large\texttt{'\{ * \}}};
+    
+    \draw[<-, very thick]
+        ([xshift=10pt, yshift=-10pt]quote.east) -- ([xshift=-10pt, yshift=-10pt]splice.west) 
+        node[midway, below, yshift=-10pt] {\Large\texttt{\$\{ * \}}};
+\end{tikzpicture}
+\end{center}
+
+  \note{
+    \tiny
+    \begin{itemize}
+      \item So far, we have seen how to inline code. Macros build on top of this construct and allow transforming code at compile-time
+      \item On the left we have the representation of a value; on the right is the representation of a piece of code that when executed produces this value
+      \item The two arrows correspond to the two operations that enable converting one to the other; quotation (at the top) and splicing (at the bottom). They are dual from one another
+      \item 
+    \end{itemize}
+  }
+
+\end{frame}

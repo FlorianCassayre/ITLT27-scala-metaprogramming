@@ -1,0 +1,30 @@
+\begin{frame}[fragile]{Function inlining: recursion}
+
+  \begin{block}{}
+    Works with recursion too:
+  \end{block}
+
+\begin{scalacode}
+inline def factorial(n: Int): Int =
+  if n == 0 then 1
+  else n * factorial(n - 1)
+\end{scalacode}
+
+  \vfill
+
+\begin{scalacode}
+val f = factorial(3)
+\end{scalacode}
+
+  \pause
+
+  \compilesto
+
+\begin{scalacode}
+// 3 * (2 * (1 * (1))
+val f = 6
+\end{scalacode}
+
+  \vspace{0.5cm}
+
+\end{frame}

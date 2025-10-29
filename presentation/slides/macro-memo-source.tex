@@ -1,0 +1,36 @@
+\begin{frame}[fragile]{Memoization macro (source)}
+
+\begin{scalacode}[\tiny]
+class memo extends MacroAnnotation:
+  override def transform(using Quotes)
+  (definition: Definition, companion: Option[Definition]): List[Definition] =
+    definition match
+      case DefDef(name, List(TermParamClause(params)), tpt, Some(body)) =>
+        val keyExpr = Expr.ofTupleFromSeq(
+          params.map(p => Ref(p.symbol).asExpr)
+        )
+        (keyExpr, body.asExpr) match
+          case ('{ $key: keyType }, '{ $body: bodyType }) =>
+            val cacheType = TypeRepr.of[mutable.HashMap[keyType, bodyType]]
+            val cacheSymbol = Symbol.newVal(
+              definition.symbol.owner, name, cacheType, Private, noSymbol
+            )
+            val cacheVal = ValDef(
+              cacheSymbol,
+              Some('{ mutable.HashMap[keyType, bodyType]() }.asTerm)
+            )
+            val newBody = '{
+              ${ 
+                Ref(cacheSymbol)
+                  .asExprOf[mutable.HashMap[keyType, bodyType]]
+              }
+                .getOrElseUpdate($key, $body)
+            }.asTerm
+            val newDef = DefDef.copy(definition)(
+              name, List(TermParamClause(params)), tpt, Some(newBody)
+            )
+            List(cacheVal, newDef)
+      case _ => report.errorAndAbort("@memo cannot be used in this context")
+\end{scalacode}
+
+\end{frame}

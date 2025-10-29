@@ -1,0 +1,23 @@
+\begin{frame}[fragile]{Memoization macro}
+
+\begin{scalacode}[\scriptsize]
+@memo
+def fibonacci(n: Int): Int =
+  if n < 2 then n else fibonacci(n - 2) + fibonacci(n - 1)
+\end{scalacode}
+
+\compilesto
+
+\begin{scalacode}[\scriptsize]
+private val fibonacci: mutable.HashMap[Tuple1[Int], Int] =
+  mutable.HashMap()
+
+@memo
+def fibonacci(n: Int): Int =
+  fibonacci.getOrElseUpdate(
+    Tuple1(n),
+    if n < 2 then n else fibonacci(n - 2) + fibonacci(n - 1)
+  )
+\end{scalacode}
+
+\end{frame}

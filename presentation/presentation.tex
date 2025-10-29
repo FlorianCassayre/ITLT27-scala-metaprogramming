@@ -1,0 +1,122 @@
+\documentclass{beamer}
+
+\usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+
+% SVG
+
+\usepackage{svg}
+\svgpath{{images/}}
+
+% Code blocks
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{listings, skins}
+
+% Mimicked style from https://docs.scala-lang.org/
+% (with some changes, since listings is quite limited)
+\definecolor{scala-background}{RGB}{253,253,247}
+\definecolor{scala-border}{RGB}{229,234,234}
+\definecolor{scala-keyword}{RGB}{153,0,0}
+\definecolor{scala-identifier}{RGB}{47,138,210}
+\definecolor{scala-comment}{RGB}{153,153,136}
+\definecolor{scala-string}{RGB}{218,50,47}
+
+\lstdefinestyle{scalaStyle}{
+    language=Scala,
+    keywordstyle=\color{scala-keyword}\bfseries,
+    commentstyle=\color{scala-comment}\itshape,
+    stringstyle=\color{scala-string},
+    identifierstyle=\color{scala-identifier},
+    numbers=none,
+    tabsize=2,
+    showspaces=false,
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=true,
+    backgroundcolor=\color{scala-background},
+    frame=single,
+    rulecolor=\color{scala-background},
+    belowskip=0pt,
+}
+
+\newtcblisting{scalacode}[1][\small]{
+    listing only,
+    listing style=scalaStyle,
+    listing options={
+        style=scalaStyle,
+        basicstyle=\ttfamily#1,
+    },
+    colback=scala-background,
+    colframe=scala-border,
+    boxrule=0.5pt,
+    arc=0.5mm,
+    left=0.5pt,
+    right=0.5pt,
+    top=0.5pt,
+    bottom=0.5pt,
+}
+
+% Theme
+
+\setbeamertemplate{navigation symbols}{} % Hide navigation
+
+\usetheme{default}
+
+\definecolor{color-logo}{RGB}{222,52,35}
+
+\setbeamercolor{title}{fg=color-logo}
+\setbeamercolor{subtitle}{fg=black}
+
+\setbeamercolor{frametitle}{fg=white,bg=color-logo}
+
+\setbeamercolor{item}{fg=color-logo}
+
+% Other
+
+\setbeameroption{show notes} % Notes
+
+\newcommand{\compilesto}{\centering{\Large{$\Downarrow$}}}
+
+\title{Metaprogramming in Scala}
+\subtitle{CERN lightnight talk}
+\author{Florian Cassayre}
+\date{7th November 2025}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Introduction}
+\subsection{Metaprogramming}
+\include{slides/metaprogramming}
+\subsection{Scala}
+\include{slides/scala}
+\include{slides/metaprogramming-scala}
+\include{slides/scala-example}
+\section{Inlining}
+\include{slides/inlining}
+\include{slides/inlining-recursive}
+\include{slides/inlining-advanced}
+\section{Compile-time operations}
+\include{slides/type-operations}
+\section{Macros}
+\include{slides/scala-compiler-runtime}
+\include{slides/quotes-splices}
+\include{slides/macro-profiler}
+\include{slides/macro-string-context}
+\include{slides/macro-memo}
+\include{slides/macro-memo-source}
+\include{slides/macro-multistage}
+\section{Libraries}
+\include{slides/scala-libraries}
+\include{slides/test}
+\section{Conclusion}
+\include{slides/conclusion}
+
+\end{document}

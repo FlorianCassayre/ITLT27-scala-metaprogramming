@@ -1,0 +1,15 @@
+\begin{frame}[fragile]{Function inlining: parameters and transparency}
+
+  \begin{block}{}
+    Transparent inline enables precise type-checking:
+  \end{block}
+
+\begin{scalacode}
+transparent inline def add(a: Int, b: Int): Int = a + b
+\end{scalacode}
+
+\begin{scalacode}
+val c: 3 = add(1, 2)
+\end{scalacode}
+
+\end{frame}

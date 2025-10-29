@@ -1,0 +1,19 @@
+\begin{frame}[fragile]{Type operations}
+\begin{scalacode}
+type Gcd[A <: Int, B <: Int] =
+  B match
+    case 0 => A
+    case _ => Gcd[B, A % B]
+\end{scalacode}
+
+\begin{scalacode}
+val gcd = constValue[Gcd[48, 18]]
+\end{scalacode}
+
+\compilesto
+
+\begin{scalacode}
+val gcd = 6
+\end{scalacode}
+
+\end{frame}

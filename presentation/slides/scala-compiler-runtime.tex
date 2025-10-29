@@ -1,0 +1,44 @@
+\begin{frame}{Scala compiler}
+
+  \begin{block}{}
+    A compiler takes \textbf{code} and produces \textbf{machine code} (or \textbf{bytecode} in the context of the JVM).
+  \end{block}
+
+  \vfill
+
+\begin{center}
+\scalebox{1}{%
+\begin{tikzpicture}[
+  node distance=1cm,
+  jvm/.style={
+    draw,
+    rectangle,
+    rounded corners=2pt,
+    minimum width=2cm,
+    minimum height=2cm,
+    align=center
+  }
+]
+
+  \node<1->[jvm, thick] (jvm) at (0,0) {\only<1>{Compiler}\only<2->{Scala\\Compiler}};
+
+  \draw<1->[->, thick] (-4,0) -- (jvm) node[midway, fill=white, inner sep=1pt] {Code};
+
+  \draw<1->[->, thick] (jvm) -- (4,0) node[midway, fill=white, inner sep=1pt] {Bytecode};
+
+  \draw<2->[->, thick] (0.5,1) -- (0.5,1.75) -- (-0.5,1.75) -- (-0.5,1);
+  \node<2-> at (0,2.1) {Bytecode};
+  
+\end{tikzpicture}
+}
+\end{center}
+
+  \vfill
+
+  \pause
+
+  \begin{block}{}
+    When the Scala compiler encounters a macro, it \textbf{compiles} it, \textbf{executes} the compiled bytecode, and treats the output as an \textbf{AST}.
+  \end{block}
+    
+\end{frame}

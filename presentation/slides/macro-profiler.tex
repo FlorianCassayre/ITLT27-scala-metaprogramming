@@ -1,0 +1,38 @@
+\begin{frame}[fragile]{Profiling macro}
+
+\begin{scalacode}
+inline def timed[R](inline expr: R): R =
+  ${ timedImpl('expr) }
+
+def timedImpl[R: Type]
+  (expr: Expr[R])(using Quotes): Expr[R] = '{
+  val t0 = System.nanoTime()
+  val result = $expr
+  val t1 = System.nanoTime()
+  val code = ${Expr(expr.show)}
+  println(f"$code: ${(t1 - t0) / 1e9}%.6f ms")
+  result
+}
+\end{scalacode}
+
+\begin{scalacode}
+// java.lang.Thread.sleep(1000L): 1.000139 ms
+timed:
+  Thread.sleep(1000L)
+\end{scalacode}
+
+  \note{
+    \tiny
+    \begin{itemize}
+      \item In this first macro example, we demonstrate how to implement a profiler. You can see the result of executing it at the bottom of the slide
+      \item Basically we will define a \texttt{timed} method, which works as the identity function but will additionally print the time it takes to execute the body along with the body itself
+      \item In order to use macros, you need to use the \texttt{inline} keyword on the definition. The parameter inlining is not necessary for macros but in this case will allow us to print the content of the body, rather that some intermediate variable
+      \item The implementation is straightforward, we measure the start and end time between the execution of the body, print the difference and finally return the result
+      \item Notice that the implementation starts with a quotation, which means that all the code that follows will be generated at every call of \texttt{timed}
+      \item Since \texttt{expr} is a variable from the upper stage, we need to splice it; this means that the code it contains will be injected
+      \item Finally, we would like to print the expression. For that, Scala offers a method \texttt{show}, which converts the AST into a string that closely matches the source code
+      \item Because \texttt{show} returns a \texttt{String}, we have to wrap it into an \texttt{Expr} in order to splice it. Scala offers out of the of the box converters for all primitive values (among other things), but you can build your own
+    \end{itemize}
+  }
+
+\end{frame}
