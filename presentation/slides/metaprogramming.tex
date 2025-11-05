@@ -1,7 +1,7 @@
 \begin{frame}{Metaprogramming}
 
   \begin{block}{}
-    A technique in which programs have the ability to
+    A set of techniques in which programs have the ability to
     \textit{analyze}, \textit{generate}, or \textit{transform} other programs---including themselves.
   \end{block}
 
@@ -15,11 +15,21 @@
   \end{itemize}
 
   \begin{block}{}
-    Common challenges:
+    Some examples (of varying capabilities):
   \end{block}
+
   \begin{itemize}
-    \item Tooling complexity
-    \item Safety
+    \item \textbf{C++}: templates
+    \item \textbf{JavaScript}: \texttt{eval}, proxy objects, reflection
+    \item \textbf{Java}: reflection, annotation processors
   \end{itemize}
+
+  \note{
+    \begin{itemize}
+        \item To put it shortly, metaprogramming is a set of techniques where programs can treat other programs as their data
+        \item There are several motivations for this, such as to increase abstraction and reduce boilerplate by generating code, improve the runtime performance by optimizing the source code, introspection, and so on
+        \item Find below how those techniques appear in these languages
+    \end{itemize}
+  }
 
 \end{frame}

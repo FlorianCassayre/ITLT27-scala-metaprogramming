@@ -26,8 +26,8 @@
 
   \draw<1->[->, thick] (jvm) -- (4,0) node[midway, fill=white, inner sep=1pt] {Bytecode};
 
-  \draw<2->[->, thick] (0.5,1) -- (0.5,1.75) -- (-0.5,1.75) -- (-0.5,1);
-  \node<2-> at (0,2.1) {Bytecode};
+  \draw<2->[->, thick] (0.5,-1) -- (0.5,-1.75) -- (-0.5,-1.75) -- (-0.5,-1);
+  \node<2-> at (0,-2.1) {Bytecode};
   
 \end{tikzpicture}
 }
@@ -38,7 +38,22 @@
   \pause
 
   \begin{block}{}
-    When the Scala compiler encounters a macro, it \textbf{compiles} it, \textbf{executes} the compiled bytecode, and treats the output as an \textbf{AST}.
+    When the Scala compiler encounters a macro, it \textbf{compiles} it, \textbf{executes} the compiled bytecode, and then proceeds to compiles the returned \textbf{AST}.
   \end{block}
-    
+
+  \note<1>{
+      \begin{itemize}
+          \item Before moving on to the macros, this slide naively describes the behavior of a standard compiler
+          \item Essentially taking code as input and producing machine code as the output
+      \end{itemize}
+  }
+
+  \note<2>{
+      \begin{itemize}
+          \item Most compilers are actually written in the language that they compile, and more importantly their machine code is typically the same as what they produce
+          \item In that case, why not allow the compiler to execute the code it has just compiled?
+          \item This is precisely what macro compilers do, in particular the Scala compiler
+          \item Macros are compiled to bytecode, this bytecode is then executed to produce an AST that will be used throughout the compilation of the remaining code 
+      \end{itemize}
+  }
 \end{frame}

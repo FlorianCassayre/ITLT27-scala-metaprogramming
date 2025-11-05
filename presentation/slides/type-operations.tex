@@ -1,4 +1,5 @@
 \begin{frame}[fragile]{Type operations}
+
 \begin{scalacode}
 type Gcd[A <: Int, B <: Int] =
   B match
@@ -15,5 +16,24 @@ val gcd = constValue[Gcd[48, 18]]
 \begin{scalacode}
 val gcd = 6
 \end{scalacode}
+
+  \vfill
+
+  \begin{itemize}
+      \item Singleton types (and in particular literal types) model a unique value
+      \item The compiler offers utilities to \href{https://docs.scala-lang.org/scala3/reference/contextual/using-clauses.html#summoning-instances}{\textit{summon}} the value of such types
+  \end{itemize}
+
+  \note<2>{
+    \begin{itemize}
+        \item To elaborate on the previous example, I am showcasing some of the possibilities of the type system
+        \item Scala allows type computations through match types
+        \item This functor (= a function at the type level) implement a GCD algorithm
+        \item In order to compare two types, the compiler will try to prove that they both reduce to the same thing
+        \item The compile-time utility "constValue" takes a type parameter (but not value parameter) and returns a value of this type. It expects a literal type as argument, and materializes its value at compilation type
+        \item Here the type is completely erased and replaced by the computed value
+        \item This mechanism of summoning values from types is useful in different scenarios
+    \end{itemize}
+  }
 
 \end{frame}

@@ -29,6 +29,35 @@ val c = add(1, 2)
 val c = 3
 \end{scalacode}
 
-  \vspace{0.5cm}
+  (the compiler also performs a \textbf{constant folding} optimization)
+
+  \note<1>{
+    \begin{itemize}
+        \item Inlining is a compiler optimization that replaces a function call by the function body, after rebinding the parameters to the actual arguments. This is called "beta-reduction" and closely relates to lambda calculus
+        \item The code doesn't need to be compiled or executed, the transformation occurs directly on the AST
+        \item In functional programming, loops are usually replaced by (tail) recursive functions; therefore this optimization can also work as a simple loop unroller
+    \end{itemize}
+  }
+
+  \note<2>{
+    \begin{itemize}
+        \item Let's consider the toy example from before, a function that adds two numbers
+        \item For performance reasons it makes sense to always replace the call by its body
+        \item In Scala one needs to add the keyword "inline" in front of the function to force the compiler to inline that particular function at every call site
+    \end{itemize}
+  }
+
+  \note<3>{
+    \begin{itemize}
+        \item Let's see what would be the result of calling it
+    \end{itemize}
+  }
+
+  \note<4>{
+    \begin{itemize}
+        \item As explained, the function call gets replaced by its body and the parameters are rebound to the arguments; here "a" and "b" are replaced by the literal value that we passed as arguments
+        \item Scala lets you print the AST after compilation, and if we do that we see that we actually obtain 3, and not 1+2. The reason is that the compiler performs additional optimizations after each inline, in this particular case it performed "constant folding", essentially computing the arithmetic operation between the literals
+    \end{itemize}
+  }
 
 \end{frame}

@@ -1,11 +1,22 @@
-\begin{frame}{Metaprogramming in Scala}
+\begin{frame}{Metaprogramming in Scala 3}
 
   \begin{itemize}
     \item \textbf{Runtime reflection}: access the high level structure
     \item \textbf{Inlining}: a modifier to guarantee inline at point of use
-    \item \textbf{Macros}: converts program code to data, and vice versa
-    \item \textbf{Multi-stage programming}: produce code at runtime
-    \item \textbf{Compile-time operations}: convert types to values
+    \item \textbf{Macros}: convert program code to data, and vice versa
+    \item \textbf{Runtime multi-staging}: compile code at runtime
+    \item \textbf{Compile-time operations}: e.g. convert types to values
   \end{itemize}
+
+  \note{
+    \begin{itemize}
+        \item The metaprogramming features of Scala 3 are as follows:
+        \item A reflection system; most programming languages exhibit some sort of a reflection API. For Scala, because it runs on the JVM it inherits the same API. It is however more powerful thanks to TASTy trees
+        \item Scala defines a soft keyword "inline" to replace a name by its expression. This feature is generally not very expensive to implement within an existing compiler. Alone, they enable in certain cases to compile code in a more efficient manner
+        \item The main use case for inlining remains macros, which build on top of it. Macro enable transforming code at compilation-time, in a type-safe way
+        \item Runtime multi-stage programming is a generalization of macros where the compilation can happen at runtime
+        \item Finally, compile-time operations are helper tools that can for instance allow use to materialize types into concrete values, or raise compilation errors programmatically
+    \end{itemize}
+  }
 
 \end{frame}

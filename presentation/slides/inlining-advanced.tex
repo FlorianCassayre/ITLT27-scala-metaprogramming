@@ -1,4 +1,4 @@
-\begin{frame}[fragile]{Function inlining: parameters and transparency}
+\begin{frame}[fragile]{Function inlining: transparency}
 
   \begin{block}{}
     Transparent inline enables precise type-checking:
@@ -11,5 +11,32 @@ transparent inline def add(a: Int, b: Int): Int = a + b
 \begin{scalacode}
 val c: 3 = add(1, 2)
 \end{scalacode}
+
+  \vfill
+
+  \pause
+
+  \begin{itemize}
+      \item Scala offers literal-based singleton types
+      \item Supports constant folding at the type level
+      \item Two types coerce if one can be converted to the other using \textbf{reduction}, \textbf{subtyping} or \textbf{implicit conversions}
+  \end{itemize}
+
+  \note<1>{
+    \begin{itemize}
+        \item So far we have seen that the compiler is capable of simplifying expressions thanks to inlining
+        \item What about the type? Actually, the types remain the same; there is obviously a conservation property, but the resulting type could be refined based on the final expression after inlining
+        \item For this purpose, Scala provides another keyword "transparent", which does exactly that
+        \item By adding it to our previous method, we are able to accurately type the result
+    \end{itemize}
+  }
+
+  \note<2>{
+    \begin{itemize}
+        \item This example showcases the use of literal types
+        \item Notice that the type itself is also constant-folded, this is yet another mechanism of the type system
+        \item The example is a bit far-fetched, but in practice this type refinement mechanism can be very effective when dealing with branches or pattern matching
+    \end{itemize}
+  }
 
 \end{frame}

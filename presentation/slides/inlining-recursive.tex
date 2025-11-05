@@ -1,7 +1,7 @@
 \begin{frame}[fragile]{Function inlining: recursion}
 
   \begin{block}{}
-    Works with recursion too:
+    Replace a function \textbf{call site} with the \textbf{body} of the called function.
   \end{block}
 
 \begin{scalacode}
@@ -25,6 +25,20 @@ val f = factorial(3)
 val f = 6
 \end{scalacode}
 
-  \vspace{0.5cm}
+(the compiler also performs a \textbf{constant folding} optimization)
+
+  \note<1>{
+    \begin{itemize}
+        \item Inlining also works with recursive functions
+        \item Here is a classic example with the factorial function
+    \end{itemize}
+  }
+
+  \note<2>{
+    \begin{itemize}
+        \item Again, thanks to constant folding we ultimately this code compiles to a literal, essentially "computing" the result at compilation-time
+        \item In fact, inlining alone is Turing-complete. This comes to no surprise as lambda calculus is itself Turing-complete
+    \end{itemize}
+  }
 
 \end{frame}

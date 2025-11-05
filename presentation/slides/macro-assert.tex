@@ -1,0 +1,35 @@
+\begin{frame}[fragile]{Assertion macro}
+
+\begin{scalacode}[\footnotesize]
+inline def assert(inline cond: Boolean): Unit =
+  ${ assertImpl('cond) }
+
+def assertImpl(cond: Expr[Boolean])(using Quotes): Expr[Unit] =
+  '{ if !$cond then throw AssertionError(${Expr(cond.show)}) }
+\end{scalacode}
+
+    \pause
+
+\begin{scalacode}
+assert("foo".equals("bar"))
+\end{scalacode}
+
+    \pause
+
+    \compilesto
+
+\begin{scalacode}
+if !"foo".equals("bar") then
+  throw AssertionError("\"foo\".equals(\"bar\")")
+\end{scalacode}
+
+  \note<1>{
+    \tiny
+    \begin{itemize}
+      \item This first example demonstrates how to implement an asserting function
+      \item It takes a condition parameter, checks that it holds and otherwise raises an exception with a developer-friendly message
+      \item In this case we are interested in printing the expression passed as argument, reason why we would need to use macros for that
+    \end{itemize}
+  }
+
+\end{frame}

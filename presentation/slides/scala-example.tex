@@ -1,4 +1,9 @@
-\begin{frame}[fragile]{Scala}
+\begin{frame}[fragile]{Scala: syntax reminder}
+
+  \begin{itemize}
+      \item Type annotations come behind the identifier
+      \item Everything is an expression; no need for a return keyword
+  \end{itemize}
 
   \begin{block}{}
     A simple Scala program:
@@ -12,5 +17,14 @@ val c = add(1, 2)
 
 println(c) // 3
 \end{scalacode}
+
+  \note{
+    \begin{itemize}
+        \item Here is a quick reminder of Scala's syntax
+        \item Unlike Java, the identifier always comes first, and the type after; this allows type annotations to become optional, specifically were the types can be inferred
+        \item All statements and code blocks are expressions, therefore the "return" keyword is generally not needed
+        \item "def" defines a function or a method, and "val" defines a constant variable (in the sense of Java "final")
+    \end{itemize}
+  }
 
 \end{frame}

@@ -1,0 +1,26 @@
+\begin{frame}[fragile]{Profiling macro (source)}
+
+\begin{scalacode}[\scriptsize]
+inline def timed[R](inline expr: R): R = ${ timedImpl('expr) }
+
+def timedImpl[R: Type](expr: Expr[R])(using Quotes): Expr[R] =
+  '{
+    val t0 = System.nanoTime()
+    val result = $expr // <- Injecting the source code
+    val t1 = System.nanoTime()
+    val code = ${Expr(expr.show)}
+    println(f"$code: ${(t1 - t0) / 1e9}%.6f ms")
+    result
+  }
+\end{scalacode}
+
+\begin{scalacode}[\scriptsize]
+val t0 = System.nanoTime()
+val result = Thread.sleep(1000L)
+val t1 = System.nanoTime()
+val code = ${Expr(expr.show)}
+println(f"java.lang.Thread.sleep(1000L): ${(t1 - t0) / 1e9}%.6f ms")
+result
+\end{scalacode}
+
+\end{frame}

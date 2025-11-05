@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 
 \usepackage{hyperref}
 \usepackage{tikz}
@@ -78,8 +78,6 @@
 
 % Other
 
-\setbeameroption{show notes} % Notes
-
 \newcommand{\compilesto}{\centering{\Large{$\Downarrow$}}}
 
 \title{Metaprogramming in Scala}
@@ -89,33 +87,49 @@
 
 \begin{document}
 
+% Notes
+%\setbeameroption{show notes}
+\setbeameroption{hide notes}
+
 \maketitle
+
+\note{
+  \begin{itemize}
+      \item In this short presentation, I will give an introduction about metaprogramming
+      \item I will illustrate some of the technique using the Scala programming language
+      \item No prior experience with Scala is expected
+  \end{itemize}
+}
 
 
 \section{Introduction}
 \subsection{Metaprogramming}
 \include{slides/metaprogramming}
 \subsection{Scala}
-\include{slides/scala}
 \include{slides/metaprogramming-scala}
-\include{slides/scala-example}
-\section{Inlining}
-\include{slides/inlining}
+\include{slides/scala}
+%\include{slides/scala-example}
+\section{Inlining and compile-time operations}
+\subsection{Inlining}
+%\include{slides/inlining}
 \include{slides/inlining-recursive}
-\include{slides/inlining-advanced}
-\section{Compile-time operations}
-\include{slides/type-operations}
+%\include{slides/inlining-advanced}
+%\subsection{Type operations}
+%\include{slides/type-operations}
 \section{Macros}
+\subsection{General principle}
 \include{slides/scala-compiler-runtime}
 \include{slides/quotes-splices}
-\include{slides/macro-profiler}
+\subsection{Examples}
+\include{slides/macro-assert}
+%\include{slides/macro-profiler}
+%\include{slides/macro-profiler-source}
 \include{slides/macro-string-context}
 \include{slides/macro-memo}
-\include{slides/macro-memo-source}
+%\include{slides/macro-memo-source}
 \include{slides/macro-multistage}
 \section{Libraries}
 \include{slides/scala-libraries}
-\include{slides/test}
 \section{Conclusion}
 \include{slides/conclusion}
 

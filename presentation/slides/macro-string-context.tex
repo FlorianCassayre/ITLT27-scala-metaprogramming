@@ -5,6 +5,13 @@
   \end{block}
 
 \begin{scalacode}[\footnotesize]
+url"http://example.com"
+url"not_a_url" // Compilation error
+\end{scalacode}
+
+\pause
+
+\begin{scalacode}[\footnotesize]
 extension (inline sc: StringContext)
   inline def url(inline args: Any*): URL =
     ${ urlImpl('sc, 'args) }
@@ -15,11 +22,6 @@ def urlImpl(scExpr: Expr[StringContext], argsExpr: Expr[Seq[Any]])(using Quotes)
     case Success(_) => '{ URL(${ Expr(rawUrl) }) }
     case Failure(_) => quotes.reflect.report
       .errorAndAbort(s"Invalid URL: '$rawUrl'")
-\end{scalacode}
-
-\begin{scalacode}[\footnotesize]
-url"http://example.com"
-url"not_a_url" // Compilation error
 \end{scalacode}
 
 \end{frame}
