@@ -1,0 +1,26 @@
+name: CI
+
+on: [push]
+
+jobs:
+  code:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '25'
+      - uses: sbt/setup-sbt@v1
+      - name: Run tests
+        run: sbt test
+  presentation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: xu-cheng/latex-action@v4
+        with:
+          working_directory: presentation
+          root_file: presentation.tex
+          args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode -shell-escape
+          extra_system_packages: inkscape
